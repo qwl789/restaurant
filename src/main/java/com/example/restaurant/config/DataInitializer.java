@@ -20,29 +20,29 @@ public class DataInitializer {
                         new BigDecimal("32.00"),
                         "https://images.unsplash.com/photo-1525755662778-989d0524087e?w=500&q=80"));
 
-                repository.save(new MenuItem("秘制红烧肉", "精选五花肉，慢火慢炖，肥而不腻，入口即化。",
+                repository.save(new MenuItem("番茄鸡蛋菠菜面", "精选五花肉，慢火慢炖，肥而不腻，入口即化。",
                         new BigDecimal("48.00"),
                         "https://images.unsplash.com/photo-1525755662778-989d0524087e?w=500&q=80"));
 
-                repository.save(new MenuItem("蒜蓉西兰花", "新鲜时蔬，大火快炒，保留食材本味，健康清爽。",
+                repository.save(new MenuItem("手工鸡肉丸", "新鲜时蔬，大火快炒，保留食材本味，健康清爽。",
                         new BigDecimal("22.00"),
                         "https://images.unsplash.com/photo-1550304943-4f24f54ddde9?w=500&q=80"));
 
-                repository.save(new MenuItem("秘制红烧肉", "精选五花肉，慢火慢炖，肥而不腻，入口即化。",
+                repository.save(new MenuItem("经典猪肉白菜馅儿饺子", "精选五花肉，慢火慢炖，肥而不腻，入口即化。",
                         new BigDecimal("48.00"),
                         "https://images.unsplash.com/photo-1525755662778-989d0524087e?w=500&q=80"));
 
-                repository.save(new MenuItem("蒜蓉西兰花", "新鲜时蔬，大火快炒，保留食材本味，健康清爽。",
+                repository.save(new MenuItem("柚子茶", "新鲜时蔬，大火快炒，保留食材本味，健康清爽。",
                         new BigDecimal("22.00"),
                         "https://images.unsplash.com/photo-1550304943-4f24f54ddde9?w=500&q=80"));
 
-                repository.save(new MenuItem("麻辣小龙虾 (大份)", "夏日必备，鲜香麻辣，让你停不下来。",
+                repository.save(new MenuItem("仔姜炒肉片", "夏日必备，鲜香麻辣，让你停不下来。",
                         new BigDecimal("99.00"),
                         "https://images.unsplash.com/photo-1550304943-4f24f54ddde9?w=500&q=80"));
-                repository.save(new MenuItem("凉拌青瓜 (大份)", "夏日必备，鲜香麻辣，让你停不下来。",
+                repository.save(new MenuItem("山药鸽子汤", "夏日必备，鲜香麻辣，让你停不下来。",
                         new BigDecimal("99.00"),
                         "https://images.unsplash.com/photo-1550304943-4f24f54ddde9?w=500&q=80"));
-                repository.save(new MenuItem("水煮鱼 (大份)", "夏日必备，鲜香麻辣，让你停不下来。",
+                repository.save(new MenuItem("红枣白米粥", "夏日必备，鲜香麻辣，让你停不下来。",
                         new BigDecimal("99.00"),
                         "https://images.unsplash.com/photo-1550304943-4f24f54ddde9?w=500&q=80"));
             }
