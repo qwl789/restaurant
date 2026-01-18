@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Spring 美食轩</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+
+    <style>
+        /* 自定义 Hero 区域背景图和遮罩样式 */
+        .hero-header {
+            /* 这里的背景图也可以换成你喜欢的餐厅环境图 */
+            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
+            url('https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=1200&q=80') center/cover no-repeat;
+            color: white;
+            padding: 4rem 0;
+            margin-bottom: 2rem;
+            border-radius: 0 0 15px 15px;
+        }
+
+        /* 卡片悬停效果：轻微上浮并增加阴影 */
+        .menu-card {
+            transition: all 0.3s ease-in-out;
+            border: none; /* 移除默认边框 */
+        }
+        .menu-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.15) !important;
+        }
+
+        /* 图片样式调整，确保高度一致 */
+        .card-img-top {
+            height: 200px;
+            object-fit: cover; /* 保持图片比例填充，裁剪多余部分 */
+        }
+
+        /* 价格标签样式 */
+        .price-tag {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #dc3545; /* Bootstrap danger color */
+        }
+    </style>
+</head>
+<body class="bg-light">
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top shadow-sm">
+    <div class="container">
+        <a class="navbar-brand fw-bold" href="#">
+            <i class="bi bi-shop-window me-2"></i>Spring 美食轩
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item">
+                    <a class="nav-link btn btn-outline-light ms-2 px-3 text-white" href="/orders">
+                        <i class="bi bi-clipboard-data me-1"></i> 我的订单
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<header class="container hero-header text-center shadow">
+    <h1 class="display-4 fw-bold">欢迎光临，味蕾的盛宴</h1>
+    <p class="lead mb-4">精选食材，匠心烹饪，为您带来最地道的美味体验。</p>
+    <a href="#menu-section" class="btn btn-outline-light btn-lg">
+        <i class="bi bi-book-half me-2"></i>浏览菜单
+    </a>
+</header>
+
+
+<div class="container pb-5" id="menu-section">
+    <div th:if="${msg}" class="alert alert-success alert-dismissible fade show shadow-sm mb-4" role="alert">
+        <i class="bi bi-check-circle-fill me-2"></i>
+        <span th:text="${msg}"></span>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+
+    <h3 class="mb-4 pb-2 border-bottom border-2"><i class="bi bi-menu-button-wide me-2 text-primary"></i>特色菜品推荐</h3>
+
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4">
+        <div class="col" th:each="item : ${menuItems}">
+            <div class="card h-100 shadow-sm menu-card">
+                <img th:src="${item.imageUrl}" class="card-img-top" th:alt="${item.name}">
+                <div class="card-body d-flex flex-column">
+                    <div class="d-flex justify-content-between align-items-start mb-2">
+                        <h5 class="card-title fw-bold mb-0" th:text="${item.name}">菜名</h5>
+                        <span class="price-tag">¥<span th:text="${item.price}"></span></span>
+                    </div>
+                    <p class="card-text text-muted flex-grow-1 small" th:text="${item.description}">描述</p>
+                </div>
+                <div class="card-footer bg-white border-top-0 pb-3">
+                    <button type="button" class="btn btn-primary w-100 rounded-pill fw-bold"
+                            data-bs-toggle="modal"
+                            th:data-bs-target="'#orderModal' + ${item.id}">
+                        <i class="bi bi-cart-plus-fill me-1"></i> 立即点餐
+                    </button>
+                </div>
+            </div>
+
+            <div class="modal fade" th:id="'orderModal' + ${item.id}" tabindex="-1" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <form action="#" th:action="@{/order}" th:object="${order}" method="post">
+                            <div class="modal-header bg-primary text-white">
+                                <h5 class="modal-title">
+                                    <i class="bi bi-basket2 me-2"></i>点餐确认: <span th:text="${item.name}" class="fw-bold"></span>
+                                </h5>
+                                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body p-4">
+                                <div class="mb-3">
+                                    <label class="form-label fw-bold"><i class="bi bi-person-fill me-1 text-secondary"></i>您的姓名</label>
+                                    <input type="text" class="form-control form-control-lg" name="customerName" placeholder="请输入怎么称呼您" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label fw-bold"><i class="bi bi-sort-numeric-up me-1 text-secondary"></i>份数</label>
+                                    <div class="input-group">
+                                        <button class="btn btn-outline-secondary" type="button" onclick="this.parentNode.querySelector('input[type=number]').stepDown()">-</button>
+                                        <input type="number" class="form-control form-control-lg text-center" name="quantity" value="1" min="1" max="10" required>
+                                        <button class="btn btn-outline-secondary" type="button" onclick="this.parentNode.querySelector('input[type=number]').stepUp()">+</button>
+                                    </div>
+                                </div>
+                                <input type="hidden" name="dishName" th:value="${item.name}">
+                            </div>
+                            <div class="modal-footer bg-light">
+                                <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">再想想</button>
+                                <button type="submit" class="btn btn-danger px-4 fw-bold"><i class="bi bi-check-lg me-1"></i>确认下单</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<footer class="bg-dark text-white text-center py-3 mt-5">
+    <small>&copy; 2023 Spring Boot 餐厅点餐系统 Demo.</small>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
